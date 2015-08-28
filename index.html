@@ -1,7 +1,35 @@
-{
-  name: 'Kshitiz Gurung',
-  twitter: 'https://twitter.com/kxhitiz',
-  github: 'https://github.com/kxhitiz',
-  linkedin: 'https://www.linkedin.com/in/kshitizgurung',
-  stackoverflow: 'http://stackoverflow.com/users/667210/kxhitiz'
-  }
+<html>
+  <head>
+    <title>Kshitiz Gurung - RoR Engineer</title>
+    <link rel="stylesheet" href="jquery.jsonview.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.jsonview.js"></script>
+  </head>
+  <body>
+    <div id = 'json'>
+    </div>
+    <script>
+      var json = {
+                  'name': 'Kshitiz Gurung',
+                  'profession' : 'Ruby on Rails Engineer',
+                  'location' : 'Fairfield, Iowa, USA',
+                  'twitter': 'https://twitter.com/kxhitiz',
+                  'github': 'https://github.com/kxhitiz',
+                  'linkedin': 'https://www.linkedin.com/in/kshitizgurung',
+                  'stackoverflow' : 'http://stackoverflow.com/users/667210/kxhitiz',
+                  'blog' : 'http://kxhitiz.tumblr.com'
+                }
+
+      $(function() {
+        $("#json").JSONView(json);
+      });
+    </script>
+    <style>
+      #json {
+        margin-top: 50px;
+        background-color: #eee;
+        text-align: center;
+      }
+    </style>
+  </body>
+</html>
