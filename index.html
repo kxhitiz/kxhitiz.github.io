@@ -6,6 +6,12 @@
     <script type="text/javascript" src="jquery.jsonview.js"></script>
   </head>
   <body>
+    <div class = "header">
+      <div>
+        A Passionate, Proactive and a Dependable <strong>Rails Engineer</strong> who loves playing Guitar. <br />
+        <em>Currently available for full-time W2 Employment</em>
+      </div>
+    </div>
     <div id = 'json'>
     </div>
     <script>
@@ -22,17 +28,36 @@
 
       $(function() {
         $("#json").JSONView(json);
+        var profile_pic = $('<img class = "profile_pic" src = "profile.jpg" />')
+        $("#json").prepend(profile_pic);
       });
     </script>
     <style>
       #json {
-        margin-top: 50px;
+        margin-top: 13px;
         background-color: #eee;
       }
 
       .jsonview {
         margin-left: 30%;
       }
+
+      .profile_pic {
+        float: left;
+        height: 150px;
+        border-radius: 50%;
+        margin: 13px 0 0 223px;
+      }
+
+      .header {
+        margin: 50px 0 0 276px;
+        color: #195299;
+      }
+
+      .header em {
+        font-weight: bold;
+      }
     </style>
   </body>
 </html>
+
