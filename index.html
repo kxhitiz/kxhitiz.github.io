@@ -1,69 +1,63 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Kshitiz Gurung - RoR Engineer</title>
-    <link rel="stylesheet" href="jquery.jsonview.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.jsonview.js"></script>
-  </head>
-  <body>
-    <div class = "header">
-      <div>
-        A Proactive, Reliable and a Passionate <strong>Rails Engineer</strong> who loves playing Guitar. <br />
-      </div>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kshitiz Gurung | </title>
+
+	<link rel="icon" href="favicon.ico" type="image/png" />
+
+	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
+	<link href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!-- <link rel="stylesheet" href="css/themes/indigo-white.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/green-white.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/red-white.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/grey-white.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/white-indigo.css"> -->
+	<link rel="stylesheet" href="css/themes/white-blue.css">
+	<!-- <link rel="stylesheet" href="css/themes/white-grey.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/white-red.css"> -->
+	<!-- <link rel="stylesheet" href="css/themes/yellow-black.css"> -->
+</head>
+<body>
+	<main>
+		<div class="intro">Hello, I'm Kshitiz!</div>
+		<div class="tagline">Rails Engineer | Code Fanatic | Music | Sports </div>
+		<!-- Find your icons from here - https://fontawesome.com/icons?d=gallery&s=brands -->
+		<div class="icons-social">
+			<a target="_blank" href="https://github.com/kxhitiz">
+        <i class="fab fa-github" aria-hidden="true" title="Github"></i>
+        <span class="sr-only">Github</span>
+      </a>
+      <a target="_blank" href="https://twitter.com/kxhitiz">
+        <i class="fab fa-twitter" aria-hidden="true" title="Twitter"></i>
+        <span class="sr-only">Twitter</span>
+      </a>
+      <a target="_blank" href="http://kxhitiz.tumblr.com">
+        <i class="fa-brands fa-tumblr" title="Personal blog"></i>
+        <span class="sr-only">Blog</span>
+      </a>
+      <a target="_blank" href="http://stackoverflow.com/users/667210/kxhitiz">
+        <i class="fab fa-stack-overflow" aria-hidden="true" title="StackOverflow"></i>
+        <span class="sr-only">StackOverflow</span>
+      </a>
+      <a target="_blank" href="https://www.linkedin.com/in/kshitizgurung">
+        <i class="fab fa-linkedin" aria-hidden="true" title="LinkedIn"></i>
+        <span class="sr-only">LinkedIn</span>
+      </a>
+      <a target="_blank" href="https://www.instagram.com/kxhitiz">
+        <i class="fa-solid fa-hashtag fa-beat" title="Social"></i>
+        <span class="sr-only">Instagram</span>
+      </a>
+      <a target="_blank" href="#">
+        <i class="fa-solid fa-guitar"></i><i>
+        <span class="sr-only">G</span>
+      </a>
     </div>
-    <div id = 'json'>
-    </div>
-    <script>
-      var json = {
-                  'name': 'Kshitiz Gurung',
-                  'profession': 'Ruby on Rails Engineer',
-                  'location': 'Denver, CO, USA',
-                  'email': 'gurung.kshitiz7 (at) gmail (dot) com',
-                  'twitter': 'https://twitter.com/kxhitiz',
-                  'github': 'https://github.com/kxhitiz',
-                  'linkedin': 'https://www.linkedin.com/in/kshitizgurung',
-                  'stackoverflow': 'http://stackoverflow.com/users/667210/kxhitiz',
-                  'blog': 'http://kxhitiz.tumblr.com',
-                  'instagram': 'https://www.instagram.com/kxhitiz'
-                }
-
-      $(function() {
-        $("#json").JSONView(json);
-        var profile_pic = $('<img class = "profile_pic" src = "profile.jpg" />')
-        $("#json").prepend(profile_pic);
-      });
-    </script>
-    <style>
-      #json {
-        margin-top: 13px;
-        background-color: #eee;
-      }
-
-      .jsonview {
-        margin-left: 30%;
-      }
-
-      .profile_pic {
-        float: left;
-        height: 150px;
-        border-radius: 50%;
-        margin: 13px 0 0 223px;
-        box-shadow: 3px 3px 3px #ccc;
-      }
-
-      .header {
-        margin: 50px 0 0 276px;
-        color: #195299;
-      }
-
-      .header em {
-        font-weight: bold;
-      }
-
-      a {
-        text-decoration: none;
-      }
-    </style>
-  </body>
+	</main>
+</body>
 </html>
-
