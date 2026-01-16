@@ -1,117 +1,925 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kshitiz Gurung - Rails Engineer crafting elegant solutions to complex problems">
+    <title>Kshitiz Gurung - Rails Engineer</title>
+    <link rel="icon" href="favicon.ico" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700&family=Montserrat:wght@700&family=Space+Grotesk:wght@700&family=Bebas+Neue&family=Poppins:wght@600&family=Orbitron:wght@700&family=Raleway:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@hotwired/stimulus@3.2.2/dist/stimulus.umd.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <title>Kshitiz Gurung | Personal Page</title>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #e5e5e5;
+            background: #2d2d2d;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
 
-	<link rel="icon" href="favicon.ico" type="image/png" />
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(64, 224, 208, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-	<link href="https://fonts.googleapis.com/css?family=Reem+Kufi|Roboto:300" rel="stylesheet">
-	<link href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/styles.css">
-	<!-- <link rel="stylesheet" href="css/themes/indigo-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/green-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/red-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/grey-white.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/white-indigo.css"> -->
-	<link rel="stylesheet" href="css/themes/white-blue.css">
-	<!-- <link rel="stylesheet" href="css/themes/white-grey.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/white-red.css"> -->
-	<!-- <link rel="stylesheet" href="css/themes/yellow-black.css"> -->
-  <script src="https://cdn.tailwindcss.com"></script>
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(100, 160, 210, 0.2) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .header-content {
+            max-width: 900px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .profile-image:hover {
+            border-color: rgba(120, 119, 198, 0.5);
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(120, 119, 198, 0.3);
+        }
+
+        .name-section h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .bio-text {
+            font-size: 1.5rem;
+            line-height: 1.7;
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .bio-text strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(120, 119, 198, 0.1);
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #a0a0ff;
+            margin-bottom: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .ai-badge::before {
+            content: '🤖';
+            font-size: 1rem;
+        }
+
+        .humor-text {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .humor-text span {
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .resume-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(120, 119, 198, 0.8), rgba(64, 224, 208, 0.8));
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-bottom: 4rem;
+            box-shadow: 0 4px 15px rgba(120, 119, 198, 0.3);
+        }
+
+        .resume-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.5);
+            background: linear-gradient(135deg, rgba(120, 119, 198, 1), rgba(64, 224, 208, 1));
+        }
+
+        .resume-link svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #e5e5e5;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(120, 119, 198, 0.3), rgba(64, 224, 208, 0.3));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+        }
+
+        .social-link:hover {
+            border-color: rgba(120, 119, 198, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .scroll-indicator:hover {
+            color: #a0a0ff;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            display: block;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        section {
+            padding: 6rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .quote-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem;
+            border-left: 4px solid rgba(120, 119, 198, 0.5);
+            margin-bottom: 3rem;
+            font-size: 1.5rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: #b0b0b0;
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-item:hover {
+            border-color: rgba(120, 119, 198, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(120, 119, 198, 0.2);
+            background: rgba(120, 119, 198, 0.05);
+        }
+
+        .fun-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .fun-fact-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .fun-fact-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(64, 224, 208, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .fun-fact-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .fun-fact-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .fun-fact-card p {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        .code-joke {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .code-joke::before {
+            content: '# rails_wisdom.rb';
+            position: absolute;
+            top: -10px;
+            left: 1rem;
+            background: #2d2d2d;
+            padding: 0 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .code-joke pre {
+            color: #a0a0ff;
+            font-size: 1rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .ai-disclosure {
+            background: rgba(120, 119, 198, 0.05);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .ai-disclosure p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .ai-disclosure .emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer a {
+            color: #a0a0ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-image {
+                width: 140px;
+                height: 140px;
+            }
+
+            .name-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .bio-text {
+                font-size: 1.2rem;
+            }
+
+            .ai-badge {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .humor-text {
+                font-size: 0.9rem;
+            }
+
+            .social-links {
+                justify-content: center;
+                gap: 0.75rem;
+            }
+
+            .social-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .resume-link {
+                font-size: 1rem;
+                padding: 0.85rem 1.75rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .quote-box {
+                font-size: 1.2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .skill-item {
+                padding: 1.2rem;
+                font-size: 1rem;
+            }
+
+            .fun-facts {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .fun-fact-card {
+                padding: 1.5rem;
+            }
+
+            .fun-fact-card .emoji {
+                font-size: 2rem;
+            }
+
+            .fun-fact-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .fun-fact-card p {
+                font-size: 0.95rem;
+            }
+
+            .ai-disclosure {
+                padding: 1.5rem;
+            }
+
+            .ai-disclosure .emoji {
+                font-size: 1.5rem;
+            }
+
+            .ai-disclosure p {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+
+            .scroll-indicator {
+                font-size: 0.85rem;
+                bottom: 1rem;
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name-section h1 {
+                font-size: 2rem;
+            }
+
+            .bio-text {
+                font-size: 1.1rem;
+            }
+
+            .social-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .resume-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .quote-box {
+                font-size: 1.1rem;
+                padding: 1.5rem 1rem;
+            }
+
+            .code-joke pre {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-	<main>
-		<div class="intro">
-      hello_world
+    <div class="grid-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="profile-section">
+                    <img src="kshitiz-profile-image.jpeg" alt="Kshitiz Gurung" class="profile-image">
+                    <div class="name-section">
+                        <h1 style="font-family: 'Playfair Display', serif;">Kshitiz<br>Gurung</h1>
+                        <p class="tagline">Rails Engineer · Tech Enthusiast · Melophile · Sports Fanatic</p>
+                    </div>
+                </div>
+
+                <div class="bio-text">
+                    <div style="max-width: 700px; margin: 0 auto;">
+                        <div style="height: 3px; width: 60px; background: linear-gradient(90deg, #a0a0ff, #40e0d0); margin-bottom: 1.5rem;"></div>
+                        <p style="font-size: 1.4rem; color: #fff; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.4;">
+                            I craft elegant solutions to complex problems.
+                        </p>
+                        <p style="line-height: 1.8; font-size: 1.05rem; color: #b0b0b0;">
+                            Writing clean, simple code isn't just my profession—it's my passion. I believe the best code 
+                            is the code you don't notice: efficient, maintainable, and beautifully structured. Every problem 
+                            is a puzzle waiting to be elegantly decomposed into manageable pieces, and every solution is an 
+                            opportunity to contribute to a more refined codebase.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="humor-text" data-controller="funfact">
+                    💡 <span data-funfact-target="text">There are only 10 types of people in the world: those who understand binary and those who don't</span>
+                </p>
+
+                <div class="social-links">
+                    <a href="https://github.com/kxhitiz" target="_blank" class="social-link" data-controller="hover">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        GitHub
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/kshitizgurung" target="_blank" class="social-link" data-controller="hover">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+
+                    <a href="https://twitter.com/kxhitiz" target="_blank" class="social-link" data-controller="hover">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        Twitter
+                    </a>
+
+                    <a href="http://stackoverflow.com/users/667210/kxhitiz" target="_blank" class="social-link" data-controller="hover">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/>
+                        </svg>
+                        Stack Overflow
+                    </a>
+
+                    <a href="http://kxhitiz.tumblr.com" target="_blank" class="social-link" data-controller="hover">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/>
+                        </svg>
+                        Blog
+                    </a>
+                </div>
+
+                <a href="https://drive.google.com/file/d/1HHroWfGFJOYVQ4Yelb6rwK1v1Cp3cAqg/view?usp=sharing" target="_blank" class="resume-link" data-controller="hover">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 12h8v2H8v-2zm0 4h8v2H8v-2zm0-8h4v2H8V8z"/>
+                    </svg>
+                    View My Resume
+                </a>
+            </div>
+            <div class="scroll-indicator" data-controller="scroll" data-action="click->scroll#scrollToNext">Scroll to explore</div>
+        </header>
+
+        <section id="philosophy">
+            <h2 class="section-title">Philosophy</h2>
+            <p class="section-subtitle">(Yes, engineers can be philosophical too)</p>
+            
+            <div class="quote-box" data-controller="randomquote">
+                <span data-randomquote-target="text">"Good code is its own best documentation."</span>
+                <br><br>
+                <span style="color: #888; font-size: 0.9rem;" data-randomquote-target="author">— Steve McConnell</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Core Expertise</h2>
+            <p class="section-subtitle">What I bring to the table</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="skill-item" style="text-align: left; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🏗️</div>
+                    <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Full-Stack Development</h4>
+                    <p style="color: #888; font-size: 0.95rem;">End-to-end application development</p>
+                </div>
+                <div class="skill-item" style="text-align: left; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+                    <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">System Architecture</h4>
+                    <p style="color: #888; font-size: 0.95rem;">Scalable & maintainable design</p>
+                </div>
+                <div class="skill-item" style="text-align: left; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
+                    <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Performance Optimization</h4>
+                    <p style="color: #888; font-size: 0.95rem;">Database tuning & efficiency</p>
+                </div>
+                <div class="skill-item" style="text-align: left; padding: 2rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🚀</div>
+                    <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Modern Web Tech</h4>
+                    <p style="color: #888; font-size: 0.95rem;">Cutting-edge frameworks & tools</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">My Journey</h2>
+            <p class="section-subtitle">From the Himalayas to the Rockies</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 700px; margin: 0 auto;">
+                <div style="display: flex; align-items: start; gap: 2rem;">
+                    <div style="font-size: 3rem; flex-shrink: 0;">🏔️</div>
+                    <div>
+                        <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem;">Nepal</h4>
+                        <p style="color: #888; line-height: 1.6;">Where my journey began. The Himalayas taught me patience, perspective, and the value of finding elegant paths through complex terrain.</p>
+                    </div>
+                </div>
+                <div style="border-left: 2px dashed rgba(255,255,255,0.1); height: 40px; margin-left: 1.5rem;"></div>
+                <div style="display: flex; align-items: start; gap: 2rem;">
+                    <div style="font-size: 3rem; flex-shrink: 0;">✈️</div>
+                    <div>
+                        <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem;">The Journey</h4>
+                        <p style="color: #888; line-height: 1.6;">Across continents and cities, building applications, solving problems, and growing as an engineer with each challenge.</p>
+                    </div>
+                </div>
+                <div style="border-left: 2px dashed rgba(255,255,255,0.1); height: 40px; margin-left: 1.5rem;"></div>
+                <div style="display: flex; align-items: start; gap: 2rem;">
+                    <div style="font-size: 3rem; flex-shrink: 0;">⛰️</div>
+                    <div>
+                        <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem;">Denver, CO</h4>
+                        <p style="color: #888; line-height: 1.6;">Now based in the Mile High City, bringing my global perspective to building robust, scalable web applications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">Side projects</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <a href="https://pitch-connect.space" target="_blank" style="text-decoration: none;">
+                    <div class="skill-item" style="text-align: left; padding: 2rem; cursor: pointer;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⚽</div>
+                        <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Pitch Connect</h4>
+                        <p style="color: #888; font-size: 0.95rem; margin-bottom: 1rem;">The easiest way to organize and join pickup soccer games. Find matches, RSVP, and build your local soccer community.</p>
+                        <span style="color: #a0a0ff; font-size: 0.85rem;">pitch-connect.space →</span>
+                    </div>
+                </a>
+                <a href="https://joinearlybloom.space" target="_blank" style="text-decoration: none;">
+                    <div class="skill-item" style="text-align: left; padding: 2rem; cursor: pointer;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🌱</div>
+                        <h4 style="color: #fff; margin-bottom: 0.5rem; font-size: 1.2rem;">Early Bloom</h4>
+                        <p style="color: #888; font-size: 0.95rem; margin-bottom: 1rem;">A calm, safe space for new parents. Share experiences, get age-aware guidance, and connect with a supportive community.</p>
+                        <span style="color: #a0a0ff; font-size: 0.85rem;">joinearlybloom.space →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section style="display: none;" id="background-options">
+            <h2 class="section-title">Beyond Code</h2>
+            <p class="section-subtitle">What I do when I'm not debugging at 2 AM</p>
+            
+            <div class="fun-facts">
+                <div class="fun-fact-card">
+                    <span class="emoji">🎵</span>
+                    <h3>Melophile</h3>
+                    <p>Music is my debugging companion. Nothing solves a tricky bug like the right playlist. From classical to electronic, if it has a beat, I'm listening.</p>
+                </div>
+
+                <div class="fun-fact-card">
+                    <span class="emoji">⚽</span>
+                    <h3>Sports Fanatic</h3>
+                    <p>Whether watching or playing, sports keep me balanced. Because sometimes the best solution comes after stepping away from the screen.</p>
+                </div>
+
+                <div class="fun-fact-card">
+                    <span class="emoji">🚀</span>
+                    <h3>Tech Enthusiast</h3>
+                    <p>Always exploring new technologies and frameworks. If it's cutting-edge and solves problems elegantly, count me in!</p>
+                </div>
+            </div>
+
+            <div class="ai-disclosure">
+                <span class="emoji">🤝</span>
+                <p>
+                    <strong>A note on AI:</strong> While AI tools are amazing copilots, the creativity, problem-solving, 
+                    and code architecture on my projects? That's all human. AI helps me code faster, but I still do the thinking. 
+                    <br><br>
+                    <em>(This website was designed with AI assistance, but every creative decision was mine!)</em>
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Kshitiz Gurung · Built with ❤️, Rails, music 🎵, and my Sidekiq 🤖</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">
+                <a href="https://github.com/kxhitiz" target="_blank">Star me on GitHub</a> · 
+                No cookies, no tracking, just code
+            </p>
+        </footer>
     </div>
-		<div class="tagline">Rails Engineer | Tech Enthusiast | Melophile | Sports Fanatic</div>
-		<!-- Find your icons from here - https://fontawesome.com/icons?d=gallery&s=brands -->
-		<div class="icons-social">
-			<a target="_blank" href="https://github.com/kxhitiz">
-        <i class="fab fa-github hover:opacity-50" aria-hidden="true" title="Github"></i>
-        <span class="sr-only">Github</span>
-      </a>
-      <a target="_blank" href="https://twitter.com/kxhitiz">
-        <i class="fab fa-twitter hover:opacity-50" aria-hidden="true" title="Twitter"></i>
-        <span class="sr-only">Twitter</span>
-      </a>
-      <a target="_blank" href="http://kxhitiz.tumblr.com">
-        <i class="fab fa-tumblr hover:opacity-50" title="Personal blog"></i>
-        <span class="sr-only">Blog</span>
-      </a>
-      <a target="_blank" href="http://stackoverflow.com/users/667210/kxhitiz">
-        <i class="fab fa-stack-overflow hover:opacity-50" aria-hidden="true" title="StackOverflow"></i>
-        <span class="sr-only">StackOverflow</span>
-      </a>
-      <a target="_blank" href="https://www.linkedin.com/in/kshitizgurung">
-        <i class="fab fa-linkedin hover:opacity-50" aria-hidden="true" title="LinkedIn"></i>
-        <span class="sr-only">LinkedIn</span>
-      </a>
-      <a target="_blank" href="https://www.instagram.com/kxhitiz">
-        <i class="fa fa-hashtag fa-beat hover:opacity-50" title="Social"></i>
-        <span class="sr-only">Instagram</span>
-      </a>
-      <a onclick="beep(200, 200, 5)">
-        <i class="fa fa-guitar hover:opacity-50"></i><i>
-        <span class="sr-only">G</span>
-      </a>
-    </div>
-	</main>
 
-  <script>
-    // The browser will limit the number of concurrent audio contexts
-    // So be sure to re-use them whenever you can
-    const myAudioContext = new AudioContext();
+    <script>
+        const application = Stimulus.Application.start();
 
-   /**
-   * Helper function to emit a beep sound in the browser using the Web Audio API.
-   * 
-   * @param {number} duration - The duration of the beep sound in milliseconds.
-   * @param {number} frequency - The frequency of the beep sound.
-   * @param {number} volume - The volume of the beep sound.
-   * 
-   * @returns {Promise} - A promise that resolves when the beep sound is finished.
-   */
-    function beep(duration, frequency, volume) {
-      return new Promise((resolve, reject) => {
-        // Set default duration if not provided
-        duration = duration || 200;
-        frequency = frequency || 440;
-        volume = volume || 100;
+        application.register("hover", class extends Stimulus.Controller {
+            connect() {
+                this.element.addEventListener('mouseenter', this.onHover.bind(this));
+            }
 
-        try{
-          let oscillatorNode = myAudioContext.createOscillator();
-          let gainNode = myAudioContext.createGain();
-          oscillatorNode.connect(gainNode);
+            onHover() {
+                this.element.style.transform = 'translateY(-2px)';
+                setTimeout(() => {
+                    this.element.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        });
 
-          // Set the oscillator frequency in hertz
-          oscillatorNode.frequency.value = frequency;
+        application.register("scroll", class extends Stimulus.Controller {
+            scrollToNext() {
+                const nextSection = document.querySelector('#philosophy');
+                if (nextSection) {
+                    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
 
-          // Set the type of oscillator
-          oscillatorNode.type= "square";
-          gainNode.connect(myAudioContext.destination);
+        application.register("funfact", class extends Stimulus.Controller {
+            static targets = ["text"];
 
-          // Set the gain to the volume
-          gainNode.gain.value = volume * 0.01;
+            facts = [
+                "There are only 10 types of people in the world: those who understand binary and those who don't",
+                "99 little bugs in the code, 99 little bugs. Take one down, patch it around, 127 little bugs in the code",
+                "A programmer's wife tells him: \"Run to the store and pick up a loaf of bread. If they have eggs, get a dozen.\" He comes back with 12 loaves of bread",
+                "It works on my machine ¯\\_(ツ)_/¯",
+                "Debugging: Being the detective in a crime movie where you are also the murderer",
+                "I would love to change the world, but they won't give me the source code",
+                "Programming is 10% writing code and 90% figuring out why it doesn't work",
+                "The best thing about a boolean is even if you're wrong, you're only off by a bit",
+                "In theory, there's no difference between theory and practice. But in practice, there is",
+                "Software developers like to solve problems. If there are no problems readily available, they will create their own"
+            ];
 
-          // Start audio with the desired duration
-          oscillatorNode.start(myAudioContext.currentTime);
-          oscillatorNode.stop(myAudioContext.currentTime + duration * 0.001);
+            connect() {
+                // Pick random starting fact
+                this.currentIndex = Math.floor(Math.random() * this.facts.length);
+                this.textTarget.textContent = this.facts[this.currentIndex];
+                this.startRotation();
+            }
 
-          // Resolve the promise when the sound is finished
-          oscillatorNode.onended = () => {
-            resolve();
-          };
-        }catch(error){
-          reject(error);
-        }
-      });
-    }
-  </script>
+            startRotation() {
+                setInterval(() => {
+                    this.currentIndex = (this.currentIndex + 1) % this.facts.length;
+                    this.updateText();
+                }, 15000); // Change every 15 seconds
+            }
+
+            updateText() {
+                this.textTarget.style.opacity = '0';
+                setTimeout(() => {
+                    this.textTarget.textContent = this.facts[this.currentIndex];
+                    this.textTarget.style.opacity = '1';
+                }, 300);
+            }
+        });
+
+        application.register("randomquote", class extends Stimulus.Controller {
+            static targets = ["text", "author"];
+
+            quotes = [
+                { text: "Truth can only be found in one place: the code.", author: "Robert C. Martin" },
+                { text: "Clean code always looks like it was written by someone who cares.", author: "Robert C. Martin" },
+                { text: "It is not enough for code to work.", author: "Robert C. Martin" },
+                { text: "So if you want to go fast, if you want to get done quickly, if you want your code to be easy to write, make it easy to read.", author: "Robert C. Martin" },
+                { text: "You should name a variable using the same care with which you name a first-born child.", author: "Robert C. Martin" },
+                { text: "A long descriptive name is better than a short enigmatic name. A long descriptive name is better than a long descriptive comment.", author: "Robert C. Martin" },
+                { text: "Of course bad code can be cleaned up. But it's very expensive.", author: "Robert C. Martin" },
+                { text: "Functions should do one thing. They should do it well. They should do it only.", author: "Robert C. Martin" },
+                { text: "Don't use a comment when you can use a function or a variable.", author: "Robert C. Martin" },
+                { text: "The ratio of time spent reading versus writing is well over 10 to 1. Making it easy to read makes it easier to write.", author: "Robert C. Martin" },
+                { text: "If you think good architecture is expensive, try bad architecture.", author: "Brian Foote & Joseph Yoder" },
+                { text: "The purpose of software architecture is to minimize the human resources required to build and maintain the required system.", author: "Robert C. Martin" },
+                { text: "Architecture is the decisions that you wish you could get right early in a project.", author: "Ralph Johnson" },
+                { text: "Good architecture makes the system easy to understand, easy to develop, easy to maintain, and easy to deploy. The ultimate goal is to minimize the lifetime cost of the system.", author: "Robert C. Martin" },
+                { text: "The goal of software architecture is to minimize the human resources required to build and maintain the required system.", author: "Robert C. Martin" },
+                { text: "The best architecture is the one that best facilitates the development, deployment, operation, and maintenance of the software system.", author: "Robert C. Martin" },
+                { text: "The architecture should scream the intent of the system.", author: "Robert C. Martin" }
+            ];
+
+            connect() {
+                // Pick random quote on page load
+                const randomIndex = Math.floor(Math.random() * this.quotes.length);
+                const quote = this.quotes[randomIndex];
+                this.textTarget.textContent = `"${quote.text}"`;
+                this.authorTarget.textContent = `— ${quote.author}`;
+            }
+        });
+    </script>
 </body>
 </html>
